@@ -1,0 +1,233 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+/* ================================
+   1. MAIN CALENDAR WRAPPER
+   Targets the root DayPicker element
+   ================================ */
+.calendar :global(.rdp-root) {
+  --rdp-accent-color: #3b82f6;
+  --rdp-background-color: #eff6ff;
+  margin: 1em;
+  width: fit-content;
+}
+
+/* ================================
+   PREVIOUS & NEXT MONTH BUTTONS
+   The actual clickable arrow buttons
+   ================================ */
+
+  .calendar :global(.rdp-nav) {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    transition: all 0.2s;
+  }
+
+/* Both buttons */
+.calendar :global(.rdp-button_previous),
+.calendar :global(.rdp-button_next) {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  transition: all 0.2s;
+}
+
+/* Hover state */
+.calendar :global(.rdp-button_previous):hover,
+.calendar :global(.rdp-button_next):hover {
+  background-color: #eff6ff;
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+/* ================================
+   2. MONTH HEADER
+   The "April 2026" title at the top
+   ================================ */
+.calendar :global(.rdp-month_caption) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* ================================
+   3. NAVIGATION ARROWS
+   The left/right arrows to change month
+   ================================ */
+.calendar :global(.rdp-nav) {
+  background: transparent;
+
+}
+
+.calendar :global(.rdp-nav):hover {
+  background-color: #f3f4f6;
+}
+
+/* ================================
+   4. WEEKDAY HEADERS
+   The "Mo Tu We Th Fr Sa Su" row
+   ================================ */
+.calendar :global(.rdp-weekday) {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #020307;
+  padding-bottom: 10px;
+}
+
+/* ================================
+   5. INDIVIDUAL DAY BUTTONS
+   Every clickable day number in the grid
+   ================================ */
+.calendar :global(.rdp-day_button) {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: solid 2px;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1.5rem;
+}
+
+.calendar :global(.rdp-day_button):hover {
+  background-color: var(--rdp-background-color);
+  color: var(--rdp-accent-color);
+}
+
+/* ================================
+   6. SELECTED DAY
+   The day the user has clicked/chosen
+   ================================ */
+.calendar :global(.rdp-selected .rdp-day_button) {
+  background-color: var(--rdp-accent-color) !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+/* ================================
+   7. TODAY'S DATE
+   Highlights the current real-world date
+   ================================ */
+.calendar :global(.rdp-today .rdp-day_button) {
+  color: var(--rdp-accent-color);
+  font-weight: 900;
+}
+
+/* ================================
+   8. DAYS FROM PREVIOUS/NEXT MONTH
+   The greyed out days at start and end of grid
+   ================================ */
+.calendar :global(.rdp-outside .rdp-day_button) {
+  opacity: 0.25;
+}
+
+/* ================================
+   9. DISABLED DAYS
+   Past dates that cannot be selected
+   ================================ */
+.calendar :global(.rdp-disabled .rdp-day_button) {
+  color: #d1d5db;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.loader {
+  width: 30px;
+  padding: 5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:rgb(66, 97, 105);
+  --_m: 
+    conic-gradient(#0000 10%,#000),
+    linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+          mask: var(--_m);
+  -webkit-mask-composite: source-out;
+          mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
+
+.slots{
+  display: flex;
+  margin-top: 1rem;
+  padding: 1rem;
+  width:400px;
+  overflow: hidden;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.slot {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.4rem;
+    padding: .5rem;
+    cursor: pointer;
+    border: solid 2px rgb(66, 97, 105);
+    border-radius: 10px;
+}
+
+.slot:hover{
+    background-color: rgb(66, 97, 105);
+    color: white;
+}
+
+.selectedSlot{
+    background-color: rgb(66, 97, 105);
+    color: white;
+}
+
+.name input{
+    padding: 1rem;
+    font-size: 1.4rem;
+    border: solid 2px rgb(66, 97, 105);
+    border-radius: 10px;
+    width: 300px;
+}
+
+.values{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    gap: 1rem;
+    margin-top: 2rem;
+    align-items: flex-start;
+}
+
+.button{
+    background-color: rgb(66, 97, 105);
+    border-radius: 10px;
+    color: white;
+    padding: 1rem;
+    font-size: 1.4rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 300px;
+}

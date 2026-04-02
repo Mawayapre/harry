@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { DayPicker } from 'react-day-picker'
 import styles from '@/styles/cale.module.css'
+import { ToastContainer, toast } from 'react-toastify';
 
 const Page = () => {
   const params = useParams();
@@ -26,7 +27,6 @@ const Page = () => {
           try {
               const res = await fetch(`/api/book/${id}?date=${date.toISOString().split('T')[0]}`)
               const data = await res.json()
-              console.log(data)
               if (res.ok) {
                   setSlots(data.availableSlots || [])
                   setBusinessId(data.availability.businessId || null)
@@ -64,7 +64,17 @@ const Page = () => {
           businessId: businessId,
         }) 
       })
-      
+
+      console.log(res)
+
+      if(res.ok){
+        toast('Appointment booked succefully', { type: "success" });
+      } else {
+        const errorData = await res.json();
+        toast(errorData.error || 'Failed to book appointment', { type: "error" });
+      }
+
+       
     } catch (error) {
       console.log("Booking error:", error);
       alert("Failed to book appointment. Please try again.");
@@ -77,6 +87,7 @@ const Page = () => {
 
   return (
     <div className={styles.container}>
+      <ToastContainer />
       <div className={styles.title}>
         Pick Date
       </div>
